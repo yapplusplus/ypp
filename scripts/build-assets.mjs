@@ -1,14 +1,15 @@
 /**
- * Turns the badge art in assets/badges/ into data URLs in src/assets/badge-images.json.
+ * Turns the pictures in assets/ into data URLs in src/assets/images.json.
  *
- * The framework's bundler inlines JSON and text, but not binary files, and badges want an
+ * The framework's bundler inlines JSON and text, but not binary files, and a badge wants an
  * `https:` or `data:` icon. So the art is downscaled here and committed as data URLs, which keeps
- * Yap++ working offline without a build step of its own.
+ * Yap++ working offline without fetching anything to draw itself.
  *
- *   node scripts/build-badge-assets.mjs
+ *   npm run assets
  *
  * Zero dependencies: PNGs are decoded, box-filtered and re-encoded with node:zlib. Files that
- * aren't 8-bit PNGs (whiteboxbadgeidkwhy.png is really a WebP) are inlined as they are.
+ * aren't 8-bit PNGs (the oneko sprite sheet, and whiteboxbadgeidkwhy.png, which is really a WebP)
+ * are inlined as they are.
  */
 import { deflateSync, inflateSync } from 'node:zlib';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -16,9 +17,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const badges = join(root, 'assets', 'badges');
 
-/** Badge art, and the size it is drawn at most (badges render at 14-18px; 64 leaves retina room). */
+/** The art, and the size it is drawn at most (badges render at 14-18px; 64 leaves retina room). */
 const SOURCES = {
   staff: ['badges/Staffcontrib.png', 64],
   helper: ['badges/Helper.png', 64],
@@ -31,6 +31,8 @@ const SOURCES = {
   yapinjs: ['badges/yapjsbadge.png', 64],
   theog: ['badges/TheOG.png', 64],
   verified: ['badges/verified.webp', 64],
+  // adryd325's oneko sprite sheet, not a badge: inlined whole so the cat needs no network.
+  oneko: ['sprites/oneko.gif', 256],
 };
 
 /** The app icon the installer and About page use, from the same source art. */
