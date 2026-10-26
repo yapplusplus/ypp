@@ -14,7 +14,7 @@ export default definePlugin({
   id: 'image-search',
   name: 'ImageSearch',
   description: 'Find out if your E-girl is REALLY a girl.. (Credits to @shizu)',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }, { name: 'shizu' }],
   tags: ['messages'],
 

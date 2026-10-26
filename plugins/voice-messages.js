@@ -21,7 +21,7 @@ export default definePlugin({
   id: 'voice-messages',
   name: 'Custom voice messages',
   description: 'Send an audio file as a voice message!! Please do not use this to catfish people.',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }],
   tags: ['composer'],
 

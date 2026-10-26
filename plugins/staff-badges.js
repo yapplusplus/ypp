@@ -11,7 +11,7 @@ export default definePlugin({
   id: 'staff-badges',
   name: 'Staff Badge',
   description: 'A badge for yap++ contributors/staff/helpers/eventwinners.',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }],
   tags: ['badges'],
   enabledByDefault: true,

@@ -33,7 +33,7 @@ export default definePlugin({
   id: 'oneko',
   name: 'Oneko',
   description: 'A little cat that follows your mouse around (real) (credits: @shizu)',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }, { name: 'shizu' }],
   tags: ['fun'],
 

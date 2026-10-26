@@ -23,7 +23,7 @@ export default definePlugin({
   id: 'double-click-reply',
   name: 'Double Click Reply',
   description: "Double click another dude's message to reply to it and your own to edit it",
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }],
   tags: ['messages'],
 

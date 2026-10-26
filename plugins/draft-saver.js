@@ -10,7 +10,7 @@ export default definePlugin({
   id: 'draft-saver',
   name: 'Draft Saver',
   description: "Saves your unsent message drafts per channel so you don't lose them if you refresh or switch channels. (By @ood)",
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }, { name: 'ood' }],
   tags: ['composer'],
 

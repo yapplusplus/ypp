@@ -33,7 +33,7 @@ export default definePlugin({
   name: 'Anonymised filenames',
   description:
     'Makes your filenames go hsduiyuyufdgydgy, so personally identifying information in a filename never leaves your computer. It renames the file; it does not strip metadata inside it.',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }],
   tags: ['privacy', 'uploads'],
 

@@ -32,12 +32,12 @@
   "screenshots": [],
   "changelog": [
     {
-      "version": "1.0.0",
+      "version": "0.1.0",
       "notes": [
-        "Rebuilt on the yapin.js-client framework.",
-        "Plugins, Themes, About and Security pages now look like Yappin's own.",
-        "Badges are drawn by the framework, so no token sniffing or Supabase backfilling.",
-        "Every plugin has settings instead of a hand-written panel."
+        "First release of the rebuild, on the yapin.js-client framework.",
+        "Fourteen plugins, each with its own settings on the Plugins page.",
+        "Plugins, Themes, About and Security pages that look like Yappin's own.",
+        "Badges drawn by the framework: no token sniffing, no Supabase backfilling."
       ]
     }
   ],

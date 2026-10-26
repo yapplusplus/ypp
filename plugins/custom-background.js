@@ -17,7 +17,7 @@ export default definePlugin({
   id: 'custom-background',
   name: 'Custom Background',
   description: 'Set a custom background!!! (Credits: @shizu)',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }, { name: 'shizu' }],
   tags: ['looks'],
 

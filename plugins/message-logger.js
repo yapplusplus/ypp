@@ -15,7 +15,7 @@ export default definePlugin({
   id: 'message-logger',
   name: 'MessageLogger',
   description: 'You know how messages get deleted right? What if they became **red** instead? (HAS SOME BUGS!)',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }],
   tags: ['messages'],
 

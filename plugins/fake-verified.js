@@ -13,7 +13,7 @@ export default definePlugin({
   id: 'fake-verified',
   name: 'Fake verified',
   description: 'Makes you have a verified badge! (only visible on your end)',
-  version: '2.0.0',
+  version: '0.1.0',
   authors: [{ name: 'salami' }],
   tags: ['badges', 'fun'],
 
