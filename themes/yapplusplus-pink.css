@@ -1,0 +1,26 @@
+/**
+ * @id yapplusplus-pink
+ * @name Yap++ Pink
+ * @description The pink Yap++ has always used, over Yapin’s own dark colours.
+ * @version 1.0.0
+ * @author salami
+ * @tags dark, pink
+ * @var --ypp-accent color #e27ed3 Accent colour
+ */
+
+/* :root four times over, so this wins against Yapin's own light-mode and server-tint rules. */
+:root:root:root:root {
+  --accent: var(--ypp-accent);
+  --accent-hover: color-mix(in srgb, var(--ypp-accent) 80%, white);
+  --accent-soft: color-mix(in srgb, var(--ypp-accent) 22%, transparent);
+  --on-accent: #1a1118;
+}
+
+.msg-author {
+  font-weight: 650;
+}
+
+.rail-item.active,
+.rail-item:hover {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ypp-accent) 55%, transparent);
+}

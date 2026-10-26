@@ -18,7 +18,8 @@ export function requestURL(input) {
 
 /** The method a fetch() call will use. */
 export function requestMethod(input, init) {
-  return String(init?.method ?? (typeof input === 'object' && input?.method) ?? 'GET').toUpperCase();
+  const method = init?.method ?? (input !== null && typeof input === 'object' ? input.method : undefined);
+  return String(method ?? 'GET').toUpperCase();
 }
 
 /** True for a request to one of Yapin's `messages` REST endpoints. */

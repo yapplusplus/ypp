@@ -61,6 +61,27 @@ export class MessageLog {
   record(key, direction, row) {
     if (!key) return;
     const data = this.#read();
+    this.#put(data, key, direction, row);
+    this.#write(data);
+  }
+
+  /**
+   * Remembers a whole channel's history at once. Messages already known are left alone, so what we
+   * learnt about them (that they were deleted, who wrote them) survives.
+   */
+  recordMany(direction, rows) {
+    const data = this.#read();
+    let added = 0;
+    for (const row of rows) {
+      if (!row?.id || data[row.id]) continue;
+      this.#put(data, row.id, direction, row);
+      added++;
+    }
+    if (added) this.#write(data);
+    return added;
+  }
+
+  #put(data, key, direction, row) {
     const author = data[AUTHOR + row.author_id];
     data[key] = {
       id: row.id ?? null,
@@ -75,7 +96,6 @@ export class MessageLog {
       author_avatar: author?.avatar,
       author_avatar_style: author?.avatar_style,
     };
-    this.#write(data);
   }
 
   /** Files a message we sent under the id the server gave it. */

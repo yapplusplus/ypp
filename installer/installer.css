@@ -1,0 +1,15 @@
+/*
+ * The installer page's own look. It is added after the installer's built-in CSS, which exposes
+ * --accent, --bg, --panel, --panel-2, --text, --muted, --border and --radius.
+ *
+ * The gradient lives here rather than in marketing.json's `background`, because the build resolves
+ * that field as a file path before it checks whether it's a gradient (yapin.js-client 0.1.6).
+ */
+body {
+  background: radial-gradient(1200px 600px at 10% -10%, #3a1f36 0%, #141519 60%);
+  background-attachment: fixed;
+}
+
+.tag {
+  letter-spacing: 0.04em;
+}

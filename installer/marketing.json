@@ -1,0 +1,60 @@
+{
+  "title": "Yap++",
+  "tagline": "The cutest client modification for Yappin'.",
+  "description": "Yap++ adds the things Yappin' doesn't: **deleted messages that turn red instead of vanishing**, badges for contributors, a custom background, drafts that survive a refresh, and a cat.\n\nEverything is a plugin, and every plugin can be turned off. Yap++ never saves, sends or otherwise touches your login details.",
+  "badge": "Rebuilt",
+  "logo": "../assets/yppIcon-256.png",
+  "accent": "#e27ed3",
+  "theme": "dark",
+  "css": "./installer.css",
+  "features": [
+    {
+      "icon": "🧩",
+      "title": "Fourteen plugins",
+      "text": "Message Logger, badges, Oneko, Draft Saver, ImageSearch and more. All optional."
+    },
+    {
+      "icon": "🎨",
+      "title": "Themes and backgrounds",
+      "text": "A background picture, the Yap++ pink theme, and a Custom CSS box."
+    },
+    {
+      "icon": "🛡️",
+      "title": "Nothing leaves",
+      "text": "No telemetry, no accounts, no API calls except Yappin's own and image hosts."
+    },
+    {
+      "icon": "😼",
+      "title": "Still a cat",
+      "text": "Oneko still follows your mouse around. Obviously."
+    }
+  ],
+  "screenshots": [],
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "notes": [
+        "Rebuilt on the yapin.js-client framework.",
+        "Plugins, Themes, About and Security pages now look like Yappin's own.",
+        "Badges are drawn by the framework, so no token sniffing or Supabase backfilling.",
+        "Every plugin has settings instead of a hand-written panel."
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Source",
+      "url": "https://github.com/salami-reborn/yapplusplus"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@sedesuu"
+    }
+  ],
+  "terms": {
+    "title": "License",
+    "file": "../LICENSE",
+    "requireAccept": false
+  },
+  "footer": "Made by salami. Yap++ is unofficial."
+}

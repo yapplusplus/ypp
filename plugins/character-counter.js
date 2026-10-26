@@ -34,7 +34,8 @@ export default definePlugin({
       min: 1,
       max: 100_000,
       integer: true,
-      validate: (value, settings) => value > settings.get('warnAt') || 'must be more than the amber count',
+      // The schema checks its own default before there are any settings to compare against.
+      validate: (value, settings) => !settings || value > settings.get('warnAt') || 'must be more than the amber count',
     },
   },
 
