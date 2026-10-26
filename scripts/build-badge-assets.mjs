@@ -30,6 +30,7 @@ const SOURCES = {
   owner: ['badges/yppIcon.png', 64],
   yapinjs: ['badges/yapjsbadge.png', 64],
   theog: ['badges/TheOG.png', 64],
+  verified: ['badges/verified.webp', 64],
 };
 
 /** The app icon the installer and About page use, from the same source art. */
