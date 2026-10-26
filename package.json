@@ -1,0 +1,22 @@
+{
+  "name": "ypp",
+  "displayName": "Yap++",
+  "version": "1.0.0",
+  "description": "The cutest client modification for Yappin'.",
+  "author": "salami",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "yapin-client dev",
+    "build": "yapin-client build",
+    "install:client": "yapin-client install",
+    "uninstall:client": "yapin-client uninstall",
+    "status": "yapin-client status",
+    "doctor": "yapin-client doctor",
+    "assets": "node scripts/build-badge-assets.mjs"
+  },
+  "devDependencies": {
+    "yapin.js-client": "github:yapin-js/yapin.js-client#v0.1.6"
+  }
+}
