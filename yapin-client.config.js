@@ -1,4 +1,9 @@
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'yapin.js-client';
+
+// The same art the owner badge uses, as a data URL, so the About page shows the real Yap++ logo
+// instead of the generic cat icon. `about.logo` isn't resolved as a file path, so it goes in inline.
+const images = JSON.parse(readFileSync(new URL('./src/assets/images.json', import.meta.url), 'utf8'));
 
 // Every option is described in node_modules/yapin.js-client/docs/configuration.md.
 export default defineConfig(({ mode }) => ({
@@ -21,8 +26,8 @@ export default defineConfig(({ mode }) => ({
 
   plugins: {
     dirs: ['./plugins'],
-    // Badges were always on in the old client, and nothing else was.
-    enabled: { 'staff-badges': true },
+    // Nothing is on until you turn it on.
+    enabled: {},
   },
 
   themes: {
@@ -40,10 +45,14 @@ export default defineConfig(({ mode }) => ({
 
   pages: {
     section: 'Yap++',
+    // Without an `intro` the framework appends `null` under the heading, which the page prints as
+    // the word "null" (it reaches DOM append(), not h(), so it isn't skipped).
+    plugins: { intro: 'Everything Yap++ adds is a plugin. Turn on the ones you want.' },
+    themes: { intro: 'Pick a theme, or write your own CSS at the bottom of the page.' },
   },
 
   about: {
-    logo: 'ypp',
+    logo: images.owner,
     intro: 'Thank you for using Yap++ 😼',
   },
 

@@ -10,6 +10,13 @@
 export default function setup(client) {
   client.logger.info(`${client.name} ${client.version} is HEREEEE BABEYYYY`);
 
+  // The About header's tile sizes its contents for a line icon. The logo is a picture, so let it
+  // fill the tile instead of floating at 26px in the middle of the accent square.
+  client.styles.add(
+    '.yc-about-logo{background:none}.yc-about-logo .yc-icon{width:100%;height:100%}.yc-about-logo .yc-icon img{border-radius:12px;object-fit:cover}',
+    { id: 'ypp-about-logo' },
+  );
+
   client.about.section('community', { title: 'Community', layout: 'chips', order: 35 });
   client.about.set('community.yapper', { label: 'Yapper', value: 'salami' });
   client.about.set('community.youtube', { label: 'YouTube', value: '@sedesuu', href: 'https://www.youtube.com/@sedesuu' });

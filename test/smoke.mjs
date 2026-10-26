@@ -45,7 +45,7 @@ manifest.config.origins = ['null', 'file://'];
 manifest.config.welcome = false;
 manifest.config.whatsNew = false;
 
-/** A contributor and a stranger, from src/assets/badges.js. */
+/** The signed-in user, who Fake verified badges, and somebody else, who gets nothing. */
 const CONTRIBUTOR = 'c5ccf056-9c36-4367-9d27-69c92424c7fe';
 const STRANGER = '00000000-1111-2222-3333-444444444444';
 /** Yapin' message ids are UUIDs, and the plugins only recognise ids that look like one. */
@@ -160,7 +160,7 @@ const client = (${runtime})().default(${JSON.stringify({ manifest, environment: 
 
     /* badges */
     const mine = await client.badges.for(${JSON.stringify(CONTRIBUTOR)});
-    check('badgesForContributor', mine.map((b) => b.id).sort());
+    check('badgesForMe', mine.map((b) => b.id).sort());
     check('badgeIconsAreData', mine.every((b) => b.icon?.src?.startsWith('data:image/')));
     check('badgesForStranger', (await client.badges.for(${JSON.stringify(STRANGER)})).map((b) => b.id));
     await sleep(80);
@@ -182,12 +182,10 @@ const client = (${runtime})().default(${JSON.stringify({ manifest, environment: 
     WebSocket.prototype.send.call(socket, JSON.stringify({ type: 'message', content: 'hi' }));
     check('typingSwallowed', sent.length === 1 && JSON.parse(sent[0]).type === 'message');
 
-    /* outgoing message suffixes */
+    /* nothing edits the messages you send any more */
     fetched.length = 0;
     await fetch('https://x/rest/v1/messages', { method: 'POST', body: JSON.stringify({ content: 'yo', channel_id: CHANNEL }) });
-    const suffixed = JSON.parse(fetched.at(-1).body).content;
-    check('suffixed', suffixed);
-    check('suffixedBoth', suffixed.startsWith('yo') && suffixed.includes('67') && suffixed.includes("(I'm a sigma)"));
+    check('sentUnchanged', JSON.parse(fetched.at(-1).body).content);
 
     /* anonymous filenames */
     const form = new FormData();
@@ -315,13 +313,10 @@ const PLUGINS = [
   'double-click-reply',
   'draft-saver',
   'fake-verified',
-  'im-a-sigma',
   'image-search',
   'message-logger',
   'oneko',
   'silent-typing',
-  'sixseven',
-  'staff-badges',
   'voice-messages',
 ];
 
@@ -329,13 +324,13 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const checks = [
   ['every plugin is bundled', same([...results.plugins].sort(), PLUGINS)],
   ['every plugin starts', same([...results.running].sort(), PLUGINS), () => JSON.stringify(results.notRunning)],
-  ['contributors get their badges', same(results.badgesForContributor, ['helper', 'owner', 'staff', 'verified'])],
+  ['you get the fake verified badge', same(results.badgesForMe, ['verified'])],
   ['badge art is inlined, not fetched', results.badgeIconsAreData === true],
-  ['strangers get none', same(results.badgesForStranger, [])],
+  ['everybody else gets none', same(results.badgesForStranger, [])],
   ['badges are drawn on profile cards', results.badgesDrawnOnProfile === true],
   ['the counter counts', results.counterText === '5' && results.counterVisible === true],
   ['typing frames are swallowed', results.typingSwallowed === true],
-  ['messages get both suffixes', results.suffixedBoth === true, () => results.suffixed],
+  ['messages are sent as written', results.sentUnchanged === 'yo', () => results.sentUnchanged],
   ['uploads are renamed', results.fileRenamed === true],
   ['double click replies', results.doubleClickReplied === true],
   ['the background is applied', results.backgroundCSS === true],

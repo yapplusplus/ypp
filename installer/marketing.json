@@ -1,7 +1,7 @@
 {
   "title": "Yap++",
   "tagline": "The cutest client modification for Yappin'.",
-  "description": "Yap++ adds the things Yappin' doesn't: **deleted messages that turn red instead of vanishing**, badges for contributors, a custom background, drafts that survive a refresh, and a cat.\n\nEverything is a plugin, and every plugin can be turned off. Yap++ never saves, sends or otherwise touches your login details.",
+  "description": "Yap++ adds the things Yappin' doesn't: **deleted messages that turn red instead of vanishing**, a custom background, drafts that survive a refresh, and a cat.\n\nEverything is a plugin, and every plugin can be turned off. Yap++ never saves, sends or otherwise touches your login details.",
   "badge": "Rebuilt",
   "logo": "../assets/yppIcon-256.png",
   "accent": "#e27ed3",
@@ -10,8 +10,8 @@
   "features": [
     {
       "icon": "🧩",
-      "title": "Fourteen plugins",
-      "text": "Message Logger, badges, Oneko, Draft Saver, ImageSearch and more. All optional."
+      "title": "Eleven plugins",
+      "text": "Message Logger, Oneko, Draft Saver, ImageSearch and more. All optional."
     },
     {
       "icon": "🎨",
@@ -35,9 +35,9 @@
       "version": "0.1.0",
       "notes": [
         "First release of the rebuild, on the yapin.js-client framework.",
-        "Fourteen plugins, each with its own settings on the Plugins page.",
+        "Eleven plugins, each with its own settings on the Plugins page.",
         "Plugins, Themes, About and Security pages that look like Yappin's own.",
-        "Badges drawn by the framework: no token sniffing, no Supabase backfilling."
+        "The fake verified badge is drawn by the framework: no token sniffing, no Supabase backfilling."
       ]
     }
   ],
