@@ -14,7 +14,7 @@
     "uninstall:client": "yapin-client uninstall",
     "status": "yapin-client status",
     "doctor": "yapin-client doctor",
-    "assets": "node scripts/build-badge-assets.mjs"
+    "assets": "node scripts/build-assets.mjs"
   },
   "devDependencies": {
     "yapin.js-client": "github:yapin-js/yapin.js-client#v0.1.6"

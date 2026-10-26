@@ -200,8 +200,9 @@ function encodePNG({ width, height, pixels }) {
 function mimeOf(file, name) {
   if (file.subarray(0, 8).equals(PNG_MAGIC)) return 'image/png';
   if (file.toString('latin1', 0, 4) === 'RIFF' && file.toString('latin1', 8, 12) === 'WEBP') return 'image/webp';
+  if (file.toString('latin1', 0, 3) === 'GIF') return 'image/gif';
   if (file[0] === 0xff && file[1] === 0xd8) return 'image/jpeg';
-  throw new Error(`${name} is not a PNG, WebP or JPEG`);
+  throw new Error(`${name} is not a PNG, WebP, GIF or JPEG`);
 }
 
 const images = {};
@@ -227,6 +228,5 @@ for (const [out, [relative, size]] of Object.entries(ICONS)) {
   console.log(`${out.padEnd(10)} written (${(file.length / 1024).toFixed(1)}KB, ${size}px)`);
 }
 
-writeFileSync(join(root, 'src', 'assets', 'badge-images.json'), `${JSON.stringify(images, null, 2)}\n`);
-console.log(`\nsrc/assets/badge-images.json: ${Object.keys(images).length} images, ${(total / 1024).toFixed(1)}KB of data URLs`);
-void badges;
+writeFileSync(join(root, 'src', 'assets', 'images.json'), `${JSON.stringify(images, null, 2)}\n`);
+console.log(`\nsrc/assets/images.json: ${Object.keys(images).length} images, ${(total / 1024).toFixed(1)}KB of data URLs`);

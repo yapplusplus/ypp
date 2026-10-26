@@ -1,6 +1,11 @@
 import { definePlugin } from 'yapin.js-client/runtime';
+import images from '../src/assets/images.json';
 
-const SPRITE = 'https://raw.githubusercontent.com/adryd325/oneko.js/14bab15a755d0e35cd4ae19c931d96d306f99f42/oneko.gif';
+/**
+ * adryd325's sprite sheet, inlined by `npm run assets` from assets/sprites/oneko.gif. The old
+ * plugin loaded it from GitHub on every start; this way the cat costs nothing and works offline.
+ */
+const SPRITE = images.oneko;
 
 /** Where each pose sits on the sprite sheet, in 32px cells. */
 const SPRITES = {

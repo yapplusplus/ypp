@@ -2,10 +2,10 @@
  * Who gets which badge. Ported from the old `plugins/badges.js`, which drew them by hand; the
  * framework draws them now, so this file is only data.
  *
- * The art is in badge-images.json as data URLs, generated from assets/badges/ by
- * `npm run assets`, so badges work offline and nothing is fetched to show them.
+ * The art is in images.json as data URLs, generated from assets/badges/ by `npm run assets`, so
+ * badges work offline and nothing is fetched to show them.
  */
-import images from './badge-images.json';
+import images from './images.json';
 
 /** Every badge Yap++ can show. `priority` sorts them: higher comes first. */
 export const BADGES = {

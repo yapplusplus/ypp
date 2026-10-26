@@ -1,6 +1,6 @@
 import { definePlugin } from 'yapin.js-client/runtime';
 import { currentUserId } from '../src/shared/yapper.js';
-import images from '../src/assets/badge-images.json';
+import images from '../src/assets/images.json';
 
 /**
  * A verified badge on your own name, and only on your own screen. Nobody else sees it: it is drawn
