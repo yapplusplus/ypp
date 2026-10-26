@@ -24,8 +24,8 @@ hand-written settings panel bolted into Yappin's nav.
 
 It is now a **client app** built with the yapin.js-client framework. The framework installs itself
 into the Yappin' desktop app you already have and brings the plumbing — the plugin lifecycle,
-settings, pages, themes, badges and an installer — so Yap++ is only the parts that make it Yap++:
-eleven plugins, their art, and a Credits page.
+settings, pages, themes and an installer — so Yap++ is only the parts that make it Yap++:
+ten plugins, their art, and a Credits page.
 
 ## Building it
 
@@ -66,12 +66,11 @@ test/smoke.mjs           starts every plugin against a mock Yappin' page
 
 ## The plugins
 
-All eleven are off until you turn them on. Each one has its own settings on the Plugins page,
+All ten are off until you turn them on. Each one has its own settings on the Plugins page,
 which is where the old **Yap++ Settings** panel went.
 
 | Plugin | | New in the rebuild |
 | --- | --- | --- |
-| **Fake verified** | A verified badge on your own name, only on your screen. | Drawn by the framework, which reads the user id off React. No more wrapping `fetch`, sniffing your token or backfilling from Supabase. Can badge any id. |
 | **MessageLogger** | Deleted messages turn red instead of vanishing. | Now remembers messages loaded from history, so deleting an older message works too. Three settings: keep on screen, announce, list. |
 | **Character Counter** | How much you've typed, above the composer. | Updates when you type instead of ten times a second. The amber and red thresholds are settings. |
 | **SilentTyping** | Never sends a typing frame. | |
@@ -109,10 +108,10 @@ is undone when the plugin stops, so most plugins need no `stop()`. The full API 
 
 ## The art
 
-A badge wants a `data:` or `https:` icon, and the bundler inlines text and JSON but not images. So
+An icon wants a `data:` or `https:` source, and the bundler inlines text and JSON but not images. So
 `npm run assets` reads `assets/`, downscales each picture to the size it is actually drawn at, and
 writes them as data URLs into `src/assets/images.json`, which is committed. 589 KB of PNGs becomes
-52 KB of data URLs, and nothing is fetched to draw a badge, the cat or the About page's logo.
+52 KB of data URLs, and nothing is fetched to draw the cat or the About page's logo.
 
 Re-run it after changing anything in `assets/`. It needs no dependencies: it decodes, box-filters
 and re-encodes PNGs with `node:zlib`.

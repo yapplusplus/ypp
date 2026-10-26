@@ -10,7 +10,7 @@
   "features": [
     {
       "icon": "🧩",
-      "title": "Eleven plugins",
+      "title": "Ten plugins",
       "text": "Message Logger, Oneko, Draft Saver, ImageSearch and more. All optional."
     },
     {
@@ -35,9 +35,9 @@
       "version": "0.1.0",
       "notes": [
         "First release of the rebuild, on the yapin.js-client framework.",
-        "Eleven plugins, each with its own settings on the Plugins page.",
+        "Ten plugins, each with its own settings on the Plugins page.",
         "Plugins, Themes, About and Security pages that look like Yappin's own.",
-        "The fake verified badge is drawn by the framework: no token sniffing, no Supabase backfilling."
+        "No token sniffing and no Supabase backfilling: the framework reads what it needs off React."
       ]
     }
   ],

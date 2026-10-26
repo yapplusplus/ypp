@@ -45,9 +45,8 @@ manifest.config.origins = ['null', 'file://'];
 manifest.config.welcome = false;
 manifest.config.whatsNew = false;
 
-/** The signed-in user, who Fake verified badges, and somebody else, who gets nothing. */
-const CONTRIBUTOR = 'c5ccf056-9c36-4367-9d27-69c92424c7fe';
-const STRANGER = '00000000-1111-2222-3333-444444444444';
+/** Whoever wrote the message in the page below. */
+const AUTHOR = 'c5ccf056-9c36-4367-9d27-69c92424c7fe';
 /** Yapin' message ids are UUIDs, and the plugins only recognise ids that look like one. */
 const MESSAGE = '11111111-2222-3333-4444-555555555555';
 
@@ -82,21 +81,12 @@ body{margin:0;background:var(--bg-main);color:var(--text);font:15px system-ui}
   </div>
 </div>
 <img id="photo" src="https://example.com/cat.png" alt="">
-<div class="pc-sub-row" id="profile"><span>@contributor</span></div>
-<div class="pc-sub-row" id="profile-stranger"><span>@stranger</span></div>
 <div class="modal"><div class="settings">
   <nav class="settings-nav"><div class="settings-nav-label">User settings</div><button class="active" id="host-account">My Account</button></nav>
   <section class="settings-main" id="host-main"><h2>My Account</h2></section>
 </div></div>
 <pre id="results">pending</pre>
 <script>
-// Who each profile card belongs to, the way the framework reads it off React.
-document.getElementById('profile').__reactFiber$t = { memoizedProps: {}, return: { memoizedProps: { userId: ${JSON.stringify(CONTRIBUTOR)} }, return: null } };
-document.getElementById('profile-stranger').__reactFiber$t = { memoizedProps: {}, return: { memoizedProps: { userId: ${JSON.stringify(STRANGER)} }, return: null } };
-
-// A signed-in Supabase session, as Yapin' stores it.
-localStorage.setItem('sb-test-auth-token', JSON.stringify({ access_token: 'x.y.z', user: { id: ${JSON.stringify(CONTRIBUTOR)} } }));
-
 // Yapin's own network and sockets, stubbed so nothing leaves the page.
 const sent = [];
 const fetched = [];
@@ -113,7 +103,7 @@ window.fetch = async (input, init) => {
     // Like the real thing: a deleted message is simply gone.
     const rows = serverDeleted.has(MESSAGE)
       ? []
-      : [{ id: MESSAGE, channel_id: CHANNEL, author_id: ${JSON.stringify(CONTRIBUTOR)}, content: 'hello there', created_at: '2026-10-26T12:00:00Z' }];
+      : [{ id: MESSAGE, channel_id: CHANNEL, author_id: ${JSON.stringify(AUTHOR)}, content: 'hello there', created_at: '2026-10-26T12:00:00Z' }];
     return new Response(JSON.stringify(rows), { headers: { 'content-type': 'application/json' } });
   }
   return new Response(JSON.stringify({ id: '99999999-8888-7777-6666-555555555555' }), { headers: { 'content-type': 'application/json' } });
@@ -157,14 +147,6 @@ const client = (${runtime})().default(${JSON.stringify({ manifest, environment: 
 
     check('running', client.plugins.list().filter((p) => p.status === 'running').map((p) => p.id));
     check('notRunning', client.plugins.list().filter((p) => p.status !== 'running').map((p) => [p.id, p.status, String(p.error ?? '')]));
-
-    /* badges */
-    const mine = await client.badges.for(${JSON.stringify(CONTRIBUTOR)});
-    check('badgesForMe', mine.map((b) => b.id).sort());
-    check('badgeIconsAreData', mine.every((b) => b.icon?.src?.startsWith('data:image/')));
-    check('badgesForStranger', (await client.badges.for(${JSON.stringify(STRANGER)})).map((b) => b.id));
-    await sleep(80);
-    check('badgesDrawnOnProfile', [...document.querySelectorAll('#profile .yc-badge')].length > 0);
 
     /* character counter */
     const composer = document.querySelector('.composer textarea');
@@ -312,7 +294,6 @@ const PLUGINS = [
   'custom-background',
   'double-click-reply',
   'draft-saver',
-  'fake-verified',
   'image-search',
   'message-logger',
   'oneko',
@@ -324,10 +305,6 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const checks = [
   ['every plugin is bundled', same([...results.plugins].sort(), PLUGINS)],
   ['every plugin starts', same([...results.running].sort(), PLUGINS), () => JSON.stringify(results.notRunning)],
-  ['you get the fake verified badge', same(results.badgesForMe, ['verified'])],
-  ['badge art is inlined, not fetched', results.badgeIconsAreData === true],
-  ['everybody else gets none', same(results.badgesForStranger, [])],
-  ['badges are drawn on profile cards', results.badgesDrawnOnProfile === true],
   ['the counter counts', results.counterText === '5' && results.counterVisible === true],
   ['typing frames are swallowed', results.typingSwallowed === true],
   ['messages are sent as written', results.sentUnchanged === 'yo', () => results.sentUnchanged],

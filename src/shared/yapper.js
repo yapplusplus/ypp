@@ -1,10 +1,9 @@
 /**
- * What Yap++ needs to know about Yapin' itself: who you are, which channel is open, and what comes
- * over its realtime socket.
+ * What Yap++ needs to know about Yapin' itself: which channel is open, which requests are about
+ * messages, and what comes over its realtime socket.
  *
- * Yapin' talks to Supabase, so the session lives in localStorage under an `sb-<ref>-auth-token`
- * key and messages arrive as realtime frames on a WebSocket. None of this leaves the computer:
- * the token is only read to know your own user id.
+ * Yapin' talks to Supabase, so messages arrive as realtime frames on a WebSocket. None of this
+ * leaves the computer: it is all read in the page it happens in.
  */
 
 const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
@@ -41,46 +40,6 @@ export function currentChannelId() {
   } catch {
     return null;
   }
-}
-
-/** The stored Supabase session, or null when signed out. */
-function storedSession() {
-  try {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (!key?.startsWith('sb-') || !key.includes('-auth-token')) continue;
-      let value = JSON.parse(localStorage.getItem(key));
-      if (typeof value === 'string') value = JSON.parse(value);
-      const session = value?.currentSession ?? value;
-      if (session) return session;
-    }
-  } catch {
-    // Signed out, or a shape we don't know. Treated the same as having no session.
-  }
-  return null;
-}
-
-/** The `sub` claim of a JWT, without verifying it: this is our own token, read locally. */
-function subjectOf(jwt) {
-  try {
-    const payload = String(jwt).split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(atob(payload + '='.repeat((4 - (payload.length % 4)) % 4))).sub ?? null;
-  } catch {
-    return null;
-  }
-}
-
-let cachedUserId = null;
-let cachedAt = 0;
-
-/** Your own Yapin' user id, lowercased. Cached briefly so painting code can call it freely. */
-export function currentUserId() {
-  if (cachedUserId && Date.now() - cachedAt < 30_000) return cachedUserId;
-  const session = storedSession();
-  const id = session?.user?.id ?? subjectOf(session?.access_token);
-  cachedUserId = id ? String(id).toLowerCase() : null;
-  cachedAt = Date.now();
-  return cachedUserId;
 }
 
 /**
